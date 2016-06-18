@@ -4,20 +4,27 @@ $warehouses = ['red','green','blue'];
 
 echo "<pre>\n";
 
-print_r(recurciveCalculate($warehouses,[['1'],['2']]));
+print_r(recurciveCalculate($warehouses));
 echo '</pre>';
 exit();
 
 
-function recurciveCalculate($warehouses,$routes){
+function recurciveCalculate($warehouses,$routes=[]){
     if(empty($warehouses)) return $routes;
     $routes_tmp=[];
     foreach($warehouses as $key=>$warehouse){
         $routes_iteration = [];
-        foreach($routes as $route){
-            $route[] = $warehouse;
-            $routes_iteration[] = $route;
+
+        if(empty($routes)){
+            $routes_iteration[]=[$warehouse];
+        }else{
+            foreach($routes as $route){
+                $route[] = $warehouse;
+                $routes_iteration[] = $route;
+            }
         }
+
+
         $warehouses_next_iteration = $warehouses;
         unset($warehouses_next_iteration[$key]);
         $routes_tmp = array_merge(
