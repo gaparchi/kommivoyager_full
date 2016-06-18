@@ -1,12 +1,46 @@
+<style>
+    .row{clear:both}
+    .w{
+        width: 20px;
+        height: 20px;
+        float:left;
+        margin: 2px;
+    }
+    ul>li{
+        list-style-type: none;
+        clear:both
+    }
+</style>
 <?php
 
-$warehouses = ['red','green','blue'];
+$warehouses = [
+    'palegreen',
+    'lightskyblue',
+    'fuchsia',
+    'crimson',
+    'darkgreen',
+    'gray'
+];
 
-echo "<pre>\n";
+echo '<p>Warehouses:</p>';
+echo '<ul>';
+foreach($warehouses as $warehouse){
+    echo "<li><span class='w' style='background-color: {$warehouse}'></span>{$warehouse}</li>";
+}
+echo '</ul>';
 
-print_r(recurciveCalculate($warehouses));
-echo '</pre>';
-exit();
+$routes_array = recurciveCalculate($warehouses);
+
+echo '<p>Кол-во вариантов -'.count($routes_array).' <p>';
+
+foreach($routes_array as $key=>$routes){
+    $pp = '<div class="w">'.++$key.'</div>';
+    echo '<div class="row">'.$pp;
+    foreach($routes as $warehouse){
+        echo "<div class='w' style='background-color: {$warehouse}'></div>";
+    }
+    echo '</div>';
+}
 
 
 function recurciveCalculate($warehouses,$routes=[]){
